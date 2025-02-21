@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 import { addProduct } from "../prisma-db"
+import { Submit } from "@/components/submit"
 
 export default function AddProductPage() {
 
@@ -43,17 +44,14 @@ export default function AddProductPage() {
             name="description"
           />
         </label>
-        {/* </label>
-        {state.errors.description && (
-          <p className="text-red-500">{state.errors.description}</p>
-        )} */}
       </div>
-        <button
+        {/* <button
           type="submit"
           className="block w-full p-2 text-white bg-blue-500 rounded disabled:bg-gray-500"
         >
           Add Product
-        </button>
+        </button> */}
+        <Submit />
       </form>
     </>
   ) 
