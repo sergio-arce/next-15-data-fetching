@@ -1,6 +1,7 @@
 "use server"
 
-import { addProduct, updateProduct } from "@/app/prisma-db"
+import { addProduct, deleteProduct, updateProduct } from "@/app/prisma-db"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 export type  Errors = {
@@ -65,4 +66,19 @@ export async function editProduct(id: number, prevState: FormState, formData: Fo
 
   await updateProduct(id, title, parseInt(price), description);
   redirect("/products-db");
+}
+
+// export async function removeProduct(id: number) {
+//   await deleteProduct(id)
+//   revalidatePath('/products-db')
+// }
+
+/**
+ * Esta alternativa es más limpia y evita el uso de bind, lo que puede ser mejor en términos de rendimiento y claridad.
+ */
+export async function removeProduct(formData: FormData) {
+  const id = Number(formData.get("productId"))
+
+  await deleteProduct(id)
+  revalidatePath('/products-db')
 }
